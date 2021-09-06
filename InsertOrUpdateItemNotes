@@ -3,6 +3,12 @@
 
 /* 
 
+Author: Furkan GÖKDEMİR
+Created Date: 6.09.2021 - 16:00
+Last Updated Date: 6.09.2021 - 17:30
+
+Description;
+
 Burada yapılan işlem, eğer ürünün not kısmı boş ise, ürünün adını not alanına getirir.
 
 Eğer ürünün not alanında herhangi bir şey yazıyorsa, güncelleme yada ekleme yapmaz.
@@ -27,7 +33,7 @@ WHILE(@ItemSAY>=@sira)
 		SET @ItemCode = (SELECT ItemCode FROM (SELECT ROW_NUMBER() OVER(ORDER BY ItemCode)AS sira, * FROM cdItemDesc WHERE ItemTypeCode = 1 AND CreatedUserName != 'sa')AS Items WHERE sira = @sira)
     SET @ItemDesc = (SELECT ItemDescription FROM (SELECT ROW_NUMBER() OVER(ORDER BY ItemCode)AS sira, * FROM cdItemDesc WHERE ItemTypeCode = 1 AND CreatedUserName != 'sa')AS Items WHERE sira = @sira)
 	
-  /* Yukarıda yazdığım select sayesinde, @sira değişkeni kaçıncı satırda ise o satırı döndürüp tek satır kayıt almasını sağlıyor. 
+    /* Yukarıda yazdığım select sayesinde, @sira değişkeni kaçıncı satırda ise o satırı döndürüp tek satır kayıt almasını sağlıyor. 
     İçerideki SELECT düzenlendikten sonra çalıştırılarak yapılan işlem daha iyi anlamlandırılır. (WHERE alanında bulunan @sira manuel değer verilmesi gerekir.) */ 
 		
     SET @kayit = (SELECT COUNT(*) FROM prItemNotes WHERE ItemCode = @ItemCode) --Yukarıda belirlediğim @ItemCode değişkeni ile burada kaç kayıt olduğunu sorguladım.
